@@ -4,18 +4,19 @@
 # 'hello' -> '5:hello,'
 netstring_encode() {
   local data="$(cat)"
-  printf "%s:%s," "$(printf "%s" "$data" | wc -c)" "$data"
+  local byte_count="$(printf "%s" "$data" | wc -c)"
+  printf "%s:%s," "${byte_count}" "$data"
 }
 
 # '5:hello,' -> 'hello'
 netstring_decode() {
   local byte_count
-  IFS='' read -d: byte_count
-  if [ "${byte_count}" -ne 0 ] ; then
-    read_bytes "${byte_count}"
+  IFS='' read -d: byte_count || return $?
+  if [ "${byte_count}" -ne 0 ]; then
+    read_bytes "${byte_count}" || return $?
   fi
   local comma="$(read_bytes 1)"
-  if [ "${comma}" != "," ] ; then
+  if [ "${comma}" != "," ]; then
     echo "netstring_decode: invalid netstring terminator \`${comma}\`" >&2
     return 1
   fi
