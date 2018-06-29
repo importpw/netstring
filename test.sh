@@ -15,3 +15,6 @@ exec 5< "$it"
 assert_equal "$(netstring_decode <&5)" "foo"
 assert_equal "$(netstring_decode <&5)" ""
 assert_equal "$(netstring_decode <&5)" "bar"
+
+netstring_decode < /dev/null
+assert_equal $? 1
