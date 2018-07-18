@@ -1,4 +1,5 @@
 #!/bin/sh
+set -eu
 eval "`curl -fsSL import.pw`"
 import "import.pw/assert@2.1.1"
 source ./netstring.sh
@@ -16,5 +17,6 @@ assert_equal "$(netstring_decode <&5)" "foo"
 assert_equal "$(netstring_decode <&5)" ""
 assert_equal "$(netstring_decode <&5)" "bar"
 
-netstring_decode < /dev/null
-assert_equal $? 1
+r=0
+netstring_decode < /dev/null || r=$?
+assert_equal $r 1
