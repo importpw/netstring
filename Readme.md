@@ -3,8 +3,8 @@
 [Netstring](https://cr.yp.to/proto/netstrings.txt) encoding and decoding
 functions for shell scripts.
 
-These functions operate over `stdin` and `stdout` so that `NULL` bytes work
-as expected.
+These functions operate over `stdin` and `stdout` so that `NULL` bytes [are
+not lost](https://unix.stackexchange.com/a/174017/102771) in the process.
 
 ## Example
 
