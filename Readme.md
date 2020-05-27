@@ -9,10 +9,8 @@ not lost](https://unix.stackexchange.com/a/174017/102771) in the process.
 ## Example
 
 ```bash
-#!/bin/sh
-eval "`curl -sfLS import.pw`"
-
-import netstring@1.0.0
+#!/usr/bin/env import
+import "netstring@1.0.0"
 
 printf "12:hello world!," | netstring_decode
 # hello world!

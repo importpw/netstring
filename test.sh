@@ -1,8 +1,7 @@
-#!/bin/sh
+#!/usr/bin/env import
 set -eu
-eval "`curl -fsSL import.pw`"
-import "import.pw/assert@2.1.1"
-source ./netstring.sh
+import "import.pw/assert@2.1.3"
+source "./netstring.sh"
 
 assert_equal "$(printf "0:," | netstring_decode)" ""
 assert_equal "$(netstring_encode < /dev/null)" "0:,"
